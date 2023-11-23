@@ -4,13 +4,15 @@ import storage from 'redux-persist/lib/storage';
 import logger from 'redux-logger';
 
 import { rootReducer } from './root-reducer';
+import {userReducer} from "./user/user.reducer";
+import {categoriesReducer} from "./categories/category.reducer";
+import {cartReducer} from "./cart/cart.reducer";
 
 const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(
   Boolean
 );
 
 const reduxPersistActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER];
-
 
 // const composeEnhancer =
 //   (process.env.NODE_ENV !== 'production' &&
@@ -21,7 +23,7 @@ const reduxPersistActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER];
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['user'],
+  whitelist: ['cart'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
